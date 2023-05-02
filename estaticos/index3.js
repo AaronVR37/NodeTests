@@ -3,6 +3,10 @@ const Docxtemplater = require("docxtemplater");
 const fs = require("fs");
 const path = require("path");
 
+const signature = fs.readFileSync('path/to/image.jpg', 'base64');
+const signature2 = fs.readFileSync('path/to/image.jpg', 'base64');
+const seal = fs.readFileSync('path/to/image.jpg', 'base64');
+
 const content = fs.readFileSync(
     path.resolve(__dirname, "ITD-AC-PO-05-03_Constancia_de_cumplimiento_de_actividad_complementaria.docx"),
     "binary"
@@ -29,6 +33,18 @@ doc.render({
     dateday: "",
     month: "",
     year: ""
+});
+
+const data = {
+    signature: signature,
+    signature2: signature2,
+    seal: seal
+};
+
+doc.setData({
+    signature: signature,
+    signature2: signature2,
+    seal: seal
 });
 
 const buf = doc.getZip().generate({

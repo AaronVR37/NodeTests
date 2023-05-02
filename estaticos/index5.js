@@ -3,6 +3,8 @@ const Docxtemplater = require("docxtemplater");
 const fs = require("fs");
 const path = require("path");
 
+const signature = fs.readFileSync('path/to/image.jpg', 'base64');
+
 const content = fs.readFileSync(
     path.resolve(__dirname, "ITD-VI-PO-01-03_Oficio_de_Solicitud_de_Visita_a_Empresa.docx"),
     "binary"
@@ -16,16 +18,26 @@ const doc = new Docxtemplater(zip, {
 });
 
 doc.render({
-    department: "",
-    visitdate: "",
-    enterpriselocation: "",
-    teacher: "",
-    schedule: "",
-    number: "",
-    name: "",
-    id: "",
+    number_oficio: "",
+    day: "",
+    month: "",
+    year: "",
     career: "",
-    semester: ""
+    teacher: "",
+    objective: "",
+    turn: "",
+    contact: "",
+    phone: "",
+    extension: "",
+    preferred_hour: ""
+});
+
+const data = {
+    signature: signature,
+};
+
+doc.setData({
+    signature: signature
 });
 
 const buf = doc.getZip().generate({
